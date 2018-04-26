@@ -1,0 +1,1 @@
+java -cp "..\..\antlr4\lib\*;." org.antlr.v4.Tool %* -Dlanguage=Cpp ".\VisualStudioAntlrProject\VisualStudioAntlrProject\swl.g4"
