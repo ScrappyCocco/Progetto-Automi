@@ -23,5 +23,11 @@ public:
 
   void exitAdd(swlParser::AddContext *ctx);
 
+void exitMeno(swlParser::MenoContext *ctx);
+
+
+void enterIfoperator(swlParser::IfoperatorContext *ctx);
+void exitIfoperator(swlParser::IfoperatorContext *ctx);
+
 };
 
