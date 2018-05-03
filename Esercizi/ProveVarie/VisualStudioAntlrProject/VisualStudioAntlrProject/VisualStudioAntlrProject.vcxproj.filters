@@ -48,6 +48,12 @@
     <None Include="swlLexer.tokens">
       <Filter>File di risorse</Filter>
     </None>
+    <None Include="example.swl">
+      <Filter>File di risorse</Filter>
+    </None>
+    <None Include="swl.g4">
+      <Filter>File di risorse</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="swlBaseListener.h">

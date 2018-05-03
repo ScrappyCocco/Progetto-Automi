@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\antlr4\lib\antlr4-runtime.dll" />
+    <None Include="example.swl" />
+    <None Include="swl.g4" />
     <None Include="swl.interp" />
     <None Include="swl.tokens" />
     <None Include="swlLexer.interp" />
