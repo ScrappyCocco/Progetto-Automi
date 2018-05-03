@@ -43,6 +43,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="MyListener.cpp" />
     <ClCompile Include="swlBaseListener.cpp" />
     <ClCompile Include="swlLexer.cpp" />
     <ClCompile Include="swlListener.cpp" />
@@ -57,6 +58,7 @@
     <None Include="swlLexer.tokens" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MyListener.h" />
     <ClInclude Include="swlBaseListener.h" />
     <ClInclude Include="swlLexer.h" />
     <ClInclude Include="swlListener.h" />
