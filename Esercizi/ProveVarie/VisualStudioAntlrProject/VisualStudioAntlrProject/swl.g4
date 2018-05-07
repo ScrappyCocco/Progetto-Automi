@@ -17,10 +17,8 @@ booloperator: comparison ((operator_list) comparison)+;
 ifoperator: 'if' '(' (comparison | booloperator) ')' 'do' statement+ 'endif';
 ifelseoperator: 'if' '(' (comparison | booloperator) ')' 'do' statement+ 'else' statement+ 'endif'; /* Ancora da implementare */
 
-preIncrementExpression : '++' (ID); /* Ancora da implementare */
-preDecrementExpression : '--' (ID); /* Ancora da implementare */
-postIncrementExpression : (ID) '++'; /* Ancora da implementare */
-postDecrementExpression : (ID) '--'; /* Ancora da implementare */
+incrementExpression : 'increment' (ID); /* Ancora da implementare */
+decrementExpression : 'decrement' (ID); /* Ancora da implementare */
 
 ID        : [a-z]+ ;
 NUMBER    : [0-9]+ ;

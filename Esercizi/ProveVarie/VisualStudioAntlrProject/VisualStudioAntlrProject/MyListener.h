@@ -44,11 +44,16 @@ public:
 	void enterIfoperator(swlParser::IfoperatorContext *ctx);
 	void exitIfoperator(swlParser::IfoperatorContext *ctx);
 
-	//LISTA FUNZIONI TODO
-	void exitPostDecrementExpression(swlParser::PostDecrementExpressionContext *ctx) { }
-	void exitPostIncrementExpression(swlParser::PostIncrementExpressionContext *ctx) { }
-	void exitPreDecrementExpression(swlParser::PreDecrementExpressionContext *ctx) { }
-	void exitPreIncrementExpression(swlParser::PreIncrementExpressionContext *ctx) { }
+	/*COSE DA DISCUTERE:
+		-COME IMPLEMENTARE IL NOT RISPETTO A COM'E' ORA
+		-SE TENERE GLI SPAZI OBBLIGATORI
+		-COME SI IMPLEMENTA IF/ELSE
+		-DISCUTERE IL CODICE IMPLEMENTATO
+		-IMPLEMENTARE LE COSE SOTTO (+ IL WHILE CHE E' COME L'IF GIA' IMPLEMENTATO)
+	*/
+	//LISTA FUNZIONI PRONTE DA IMPLEMENTARE
+	void exitIncrementExpression(swlParser::IncrementExpressionContext *ctx)  { }
+	void exitDecrementExpression(swlParser::DecrementExpressionContext *ctx)  { }
 	void enterIfelseoperator(swlParser::IfelseoperatorContext *ctx)  { }
 	void exitIfelseoperator(swlParser::IfelseoperatorContext *ctx)  { }
 };
