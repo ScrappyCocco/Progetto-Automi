@@ -1,6 +1,7 @@
 // Generated from swl.g4 by ANTLR 4.7
 #include <iostream>
 #include "MyListener.h"
+#include "ParserRuleContext.h"
 
 using namespace std;
 
@@ -167,10 +168,20 @@ string generateBracketsBooleanExpression(swlParser::BoolbracketsContext* ctx) {
 }
 
 string generateBooleanExpressionNew(swlParser::BooloperatorContext* ctx) {
+	size_t boolbrackets_index = ctx->boolbrackets()[0]->getRuleIndex();
+	//size_t boolbrackets_index = ctx->boolbrackets()[0]->getRuleIndex();
 	cout << "---PRINTING---" << endl;
 	string final_string = "";
+	cout << "---TEST---" << endl;
+	cout << typeid(ctx->children[0]).name() << endl;
+	cout << "---END---" << endl;
 	for (int i = 0;i < ctx->children.size();i++) {
 		cout << ctx->children[i]->getText() << endl;
+		
+	}
+	for (int i = 0; i < ctx->getRuleContexts<antlr4::ParserRuleContext>().size(); i++) {
+		cout << "Index:" << i << " --> " << ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]->getRuleIndex() << " - "<< ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]->getText() << endl;
+		
 	}
 	cout << "---END PRINTING---" << endl;
 	return final_string;
