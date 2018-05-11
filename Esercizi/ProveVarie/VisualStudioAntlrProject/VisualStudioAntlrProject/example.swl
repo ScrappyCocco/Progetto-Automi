@@ -10,7 +10,7 @@ start
 	print b
 	print a
 	print 3
-	if (not a greater b or a greater 5 and b greater 5) do
+	if (a greater 2 and (b greater 10) and a greater b or (a greater 5 and b greater 5)) do
 		add 10 to a
 	endif
 	print a	

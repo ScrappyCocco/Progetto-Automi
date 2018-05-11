@@ -136,15 +136,60 @@ string generateComparisonExpression(swlParser::ComparisonContext* ctx) {
 		val2 = ctx->NUMBER()->getText();
 	}
 	bool_operator = convertBooleanOperatorToCppOperator(ctx->bool_compare_operators()->getText());
-	string final_string = val1 + " " + bool_operator + " " + val2;
+	string not_string = "";
+	if (ctx->not_operator().size() > 0) {
+		for (int i = 0;i < ctx->not_operator().size();i++) {
+			not_string += convertBooleanOperatorToCppOperator(ctx->not_operator(i)->getText());
+		}
+	}
+	string final_string;
+	if (not_string != "") {
+		final_string = not_string + "(" + val1 + " " + bool_operator + " " + val2 + ")";
+	}
+	else {
+		final_string = val1 + " " + bool_operator + " " + val2;
+	}
+	return final_string;
+}
+
+string generateBooleanExpression(swlParser::BooloperatorContext* ctx);
+
+string generateBracketsBooleanExpression(swlParser::BoolbracketsContext* ctx) {
+	string final_string = "(";
+	if (ctx->comparison() != NULL) {
+		final_string += generateComparisonExpression(ctx->comparison());
+	}
+	else {
+		final_string += generateBooleanExpression(ctx->booloperator());
+	}
+	final_string += ")";
+	return final_string;
+}
+
+string generateBooleanExpressionNew(swlParser::BooloperatorContext* ctx) {
+	cout << "---PRINTING---" << endl;
+	string final_string = "";
+	for (int i = 0;i < ctx->children.size();i++) {
+		cout << ctx->children[i]->getText() << endl;
+	}
+	cout << "---END PRINTING---" << endl;
 	return final_string;
 }
 
 //FUNZIONE USATA PER CONVERTIRE UN BooloperatorContext NELLA STRINGA CHE LO RAPPRESENTA
 //VIENE UTILIZZATO UN FOR PER LE OPERAZIONI CONCATENATE (a > b && b > c) DA DUE POTREBBERO ESSERE INFINITE
 string generateBooleanExpression(swlParser::BooloperatorContext* ctx) {
+	string final_string = "";
+	//LISTA DI PARENTESI
+	/*if (ctx->boolbrackets().size > 2) {
+		for (int i = 1;i < ctx->boolbrackets().size();i++) {
+			string other_expr = generateComparisonExpression(ctx->comparison(i));
+			string bool_operator = convertBooleanOperatorToCppOperator(ctx->operator_list(i - 1)->getText());
+			final_string += bool_operator + " " + other_expr + " ";
+		}
+	}
+	//LSITA DI COMPARE SEMPLICI
 	if (ctx->comparison().size() > 2) {
-		string final_string = "";
 		string expr1 = generateComparisonExpression(ctx->comparison(0));
 		final_string += expr1 + " ";
 		for (int i = 1;i < ctx->comparison().size();i++) {
@@ -154,22 +199,26 @@ string generateBooleanExpression(swlParser::BooloperatorContext* ctx) {
 		}
 		return final_string;
 	}
-	else {
+	else if (ctx->comparison().size() == 2) { //SOLO 2 COMPARE SEMPLICI IN TUTTO IL BooloperatorContext
 		string expr1 = generateComparisonExpression(ctx->comparison(0));
 		string expr2 = generateComparisonExpression(ctx->comparison(1));
 		string bool_operator = convertBooleanOperatorToCppOperator(ctx->operator_list(0)->getText());
 		return expr1 + " " + bool_operator + " " + expr2;
-	}
+	}*/
+	return final_string;
 }
 
 void MyListener::enterIfoperator(swlParser::IfoperatorContext *ctx)
 {
 	string boolexp = "";
 	if (ctx->booloperator() != NULL) {
-		boolexp = generateBooleanExpression(ctx->booloperator());
+		//boolexp = generateBooleanExpression(ctx->booloperator());
+		boolexp = generateBooleanExpressionNew(ctx->booloperator());
 	}
 	else {
-		boolexp = generateComparisonExpression(ctx->comparison());
+		if (ctx->comparison() != NULL) {
+			boolexp = generateComparisonExpression(ctx->comparison());
+		}
 	}
 	cout << string(indent, ' ') << "if (" << boolexp << ") {" << endl;
 	indent += 4;
