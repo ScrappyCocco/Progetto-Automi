@@ -10,8 +10,26 @@ start
 	print b
 	print a
 	print 3
-	if (a greater 2 and (b greater 10) and a greater b or (a greater 5 and b greater 5)) do
+	if ((a grequal 10) or a greater 2 and (b greater 10) and a greater b or (a greater 5 and b greater 5)) do
 		add 10 to a
 	endif
-	print a	
+	if (a grequal 10) do
+		if (a grequal 10) do
+			add 10 to a
+		endif
+	else
+		add 5 to a
+		if (a grequal 10) do
+			add 10 to a
+		else
+			add 10 to a
+		endif
+	endif
+	while (a lwequal 10) do
+		decrement a
+	endwhile
+	do
+		increment a
+	while (a lwequal 10)
+	print a
 end

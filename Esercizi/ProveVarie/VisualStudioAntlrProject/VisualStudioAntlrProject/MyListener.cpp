@@ -100,29 +100,51 @@ void MyListener::exitDiv(swlParser::DivContext *ctx)
 	cout << string(indent, ' ') << name << " /= " << val << ";" << endl;
 }
 
+void MyListener::exitIncrementExpression(swlParser::IncrementExpressionContext *ctx)
+{
+	string name = ctx->ID()->getText();
+	cout << string(indent, ' ') << "++" << name << ";" << endl;
+}
+
+void MyListener::exitDecrementExpression(swlParser::DecrementExpressionContext *ctx)
+{
+	string name = ctx->ID()->getText();
+	cout << string(indent, ' ') << "--" << name << ";" << endl;
+}
+
 //FUNZIONE UTILIZZATA PER CONVERTIRE IL TESTO DELL'OPERATORE IN OPERATORE CPP
 string convertBooleanOperatorToCppOperator(string bool_operator) {
 	if (bool_operator == "equal") {
-		return "==";
+		return " == ";
 	}
 	if (bool_operator == "lower") {
-		return "<";
+		return " < ";
 	}
 	if (bool_operator == "greater") {
-		return ">";
+		return " > ";
 	}
 	if (bool_operator == "different") {
-		return "!=";
+		return " != ";
+	}
+	if (bool_operator == "grequal") {
+		return " >= ";
+	}
+	if (bool_operator == "lwequal") {
+		return " <= ";
 	}
 	if (bool_operator == "and") {
-		return "&&";
+		return " && ";
 	}
 	if (bool_operator == "or") {
-		return "||";
+		return " || ";
 	}
 	if (bool_operator == "not") {
 		return "!";
 	}
+}
+
+string generateOperatorList(swlParser::Operator_listContext* ctx) {
+	return convertBooleanOperatorToCppOperator(ctx->getText());
 }
 
 //FUNZIONE USATA PER CONVERTIRE UN ComparisonContext NELLA STRINGA CHE LO RAPPRESENTA (Ex. a greater b --> a > b)
@@ -167,55 +189,22 @@ string generateBracketsBooleanExpression(swlParser::BoolbracketsContext* ctx) {
 	return final_string;
 }
 
-string generateBooleanExpressionNew(swlParser::BooloperatorContext* ctx) {
-	size_t boolbrackets_index = ctx->boolbrackets()[0]->getRuleIndex();
-	//size_t boolbrackets_index = ctx->boolbrackets()[0]->getRuleIndex();
-	cout << "---PRINTING---" << endl;
-	string final_string = "";
-	cout << "---TEST---" << endl;
-	cout << typeid(ctx->children[0]).name() << endl;
-	cout << "---END---" << endl;
-	for (int i = 0;i < ctx->children.size();i++) {
-		cout << ctx->children[i]->getText() << endl;
-		
-	}
-	for (int i = 0; i < ctx->getRuleContexts<antlr4::ParserRuleContext>().size(); i++) {
-		cout << "Index:" << i << " --> " << ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]->getRuleIndex() << " - "<< ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]->getText() << endl;
-		
-	}
-	cout << "---END PRINTING---" << endl;
-	return final_string;
-}
-
-//FUNZIONE USATA PER CONVERTIRE UN BooloperatorContext NELLA STRINGA CHE LO RAPPRESENTA
-//VIENE UTILIZZATO UN FOR PER LE OPERAZIONI CONCATENATE (a > b && b > c) DA DUE POTREBBERO ESSERE INFINITE
 string generateBooleanExpression(swlParser::BooloperatorContext* ctx) {
 	string final_string = "";
-	//LISTA DI PARENTESI
-	/*if (ctx->boolbrackets().size > 2) {
-		for (int i = 1;i < ctx->boolbrackets().size();i++) {
-			string other_expr = generateComparisonExpression(ctx->comparison(i));
-			string bool_operator = convertBooleanOperatorToCppOperator(ctx->operator_list(i - 1)->getText());
-			final_string += bool_operator + " " + other_expr + " ";
+	for (int i = 0; i < ctx->getRuleContexts<antlr4::ParserRuleContext>().size(); i++) {
+		if (typeid(*ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]) == typeid(swlParser::ComparisonContext)) {
+			final_string += generateComparisonExpression(static_cast<swlParser::ComparisonContext*>(ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]));
+		}
+		if (typeid(*ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]) == typeid(swlParser::BooloperatorContext)) {
+			final_string += generateBooleanExpression(static_cast<swlParser::BooloperatorContext*>(ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]));
+		}
+		if (typeid(*ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]) == typeid(swlParser::BoolbracketsContext)) {
+			final_string += generateBracketsBooleanExpression(static_cast<swlParser::BoolbracketsContext*>(ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]));
+		}
+		if (typeid(*ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]) == typeid(swlParser::Operator_listContext)) {
+			final_string += generateOperatorList(static_cast<swlParser::Operator_listContext*>(ctx->getRuleContexts<antlr4::ParserRuleContext>()[i]));
 		}
 	}
-	//LSITA DI COMPARE SEMPLICI
-	if (ctx->comparison().size() > 2) {
-		string expr1 = generateComparisonExpression(ctx->comparison(0));
-		final_string += expr1 + " ";
-		for (int i = 1;i < ctx->comparison().size();i++) {
-			string other_expr = generateComparisonExpression(ctx->comparison(i));
-			string bool_operator = convertBooleanOperatorToCppOperator(ctx->operator_list(i-1)->getText());
-			final_string += bool_operator + " " + other_expr + " ";
-		}
-		return final_string;
-	}
-	else if (ctx->comparison().size() == 2) { //SOLO 2 COMPARE SEMPLICI IN TUTTO IL BooloperatorContext
-		string expr1 = generateComparisonExpression(ctx->comparison(0));
-		string expr2 = generateComparisonExpression(ctx->comparison(1));
-		string bool_operator = convertBooleanOperatorToCppOperator(ctx->operator_list(0)->getText());
-		return expr1 + " " + bool_operator + " " + expr2;
-	}*/
 	return final_string;
 }
 
@@ -223,8 +212,7 @@ void MyListener::enterIfoperator(swlParser::IfoperatorContext *ctx)
 {
 	string boolexp = "";
 	if (ctx->booloperator() != NULL) {
-		//boolexp = generateBooleanExpression(ctx->booloperator());
-		boolexp = generateBooleanExpressionNew(ctx->booloperator());
+		boolexp = generateBooleanExpression(ctx->booloperator());
 	}
 	else {
 		if (ctx->comparison() != NULL) {
@@ -239,5 +227,77 @@ void MyListener::exitIfoperator(swlParser::IfoperatorContext *ctx) {
 	indent -= 4;
 	cout << string(indent, ' ') << "}" << endl;
 }
+
+void MyListener::enterIfelseoperator(swlParser::IfelseoperatorContext *ctx)
+{
+	string boolexp = "";
+	if (ctx->booloperator() != NULL) {
+		boolexp = generateBooleanExpression(ctx->booloperator());
+	}
+	else {
+		if (ctx->comparison() != NULL) {
+			boolexp = generateComparisonExpression(ctx->comparison());
+		}
+	}
+	cout << string(indent, ' ') << "if (" << boolexp << ") {" << endl;
+	indent += 4;
+}
+
+void MyListener::exitElse_word(swlParser::Else_wordContext *ctx)
+{
+	indent -= 4;
+	cout << string(indent, ' ') << "} else {" << endl;
+	indent += 4;
+}
+
+void MyListener::exitIfelseoperator(swlParser::IfelseoperatorContext *ctx)
+{
+	indent -= 4;
+	cout << string(indent, ' ') << "}" << endl;
+}
+
+void MyListener::enterWhilecycle(swlParser::WhilecycleContext *ctx)
+{
+	string boolexp = "";
+	if (ctx->booloperator() != NULL) {
+		boolexp = generateBooleanExpression(ctx->booloperator());
+	}
+	else {
+		if (ctx->comparison() != NULL) {
+			boolexp = generateComparisonExpression(ctx->comparison());
+		}
+	}
+	cout << string(indent, ' ') << "while (" << boolexp << ") {" << endl;
+	indent += 4;
+}
+
+void MyListener::exitWhilecycle(swlParser::WhilecycleContext *ctx)
+{
+	indent -= 4;
+	cout << string(indent, ' ') << "}" << endl;
+}
+
+void MyListener::enterDowhilecycle(swlParser::DowhilecycleContext *ctx)
+{
+	cout << string(indent, ' ') << "do {" << endl;
+	indent += 4;
+}
+
+void MyListener::exitDowhilecycle(swlParser::DowhilecycleContext *ctx)
+{
+	string boolexp = "";
+	if (ctx->booloperator() != NULL) {
+		boolexp = generateBooleanExpression(ctx->booloperator());
+	}
+	else {
+		if (ctx->comparison() != NULL) {
+			boolexp = generateComparisonExpression(ctx->comparison());
+		}
+	}
+	indent -= 4;
+	cout << string(indent, ' ') << "} while (" << boolexp << ");" << endl;
+	
+}
+
 
 

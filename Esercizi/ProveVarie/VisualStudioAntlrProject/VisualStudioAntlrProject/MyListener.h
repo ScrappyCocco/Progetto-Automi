@@ -37,24 +37,25 @@ public:
 	void exitSub(swlParser::SubContext *ctx);
 	void exitMul(swlParser::MulContext *ctx);
 	void exitDiv(swlParser::DivContext *ctx);
+	void exitIncrementExpression(swlParser::IncrementExpressionContext *ctx);
+	void exitDecrementExpression(swlParser::DecrementExpressionContext *ctx);
 
 	/**
 	Funzioni IF
 	*/
 	void enterIfoperator(swlParser::IfoperatorContext *ctx);
 	void exitIfoperator(swlParser::IfoperatorContext *ctx);
+	void enterIfelseoperator(swlParser::IfelseoperatorContext *ctx);
+	void exitIfelseoperator(swlParser::IfelseoperatorContext *ctx);
+	void exitElse_word(swlParser::Else_wordContext *ctx);
 
-	/*COSE DA DISCUTERE:
-		-COME IMPLEMENTARE IL NOT RISPETTO A COM'E' ORA
-		-SE TENERE GLI SPAZI OBBLIGATORI
-		-COME SI IMPLEMENTA IF/ELSE
-		-DISCUTERE IL CODICE IMPLEMENTATO
-		-IMPLEMENTARE LE COSE SOTTO (+ IL WHILE CHE E' COME L'IF GIA' IMPLEMENTATO)
+	/**
+	Cicli
 	*/
-	//LISTA FUNZIONI PRONTE DA IMPLEMENTARE
-	void exitIncrementExpression(swlParser::IncrementExpressionContext *ctx)  { }
-	void exitDecrementExpression(swlParser::DecrementExpressionContext *ctx)  { }
-	void enterIfelseoperator(swlParser::IfelseoperatorContext *ctx)  { }
-	void exitIfelseoperator(swlParser::IfelseoperatorContext *ctx)  { }
+	void enterDowhilecycle(swlParser::DowhilecycleContext *ctx);
+	void exitDowhilecycle(swlParser::DowhilecycleContext *ctx);
+	void enterWhilecycle(swlParser::WhilecycleContext *ctx);
+	void exitWhilecycle(swlParser::WhilecycleContext *ctx);
+	
 };
 
