@@ -2,7 +2,7 @@ grammar swl;
 
 program   : 'start' statement+ 'end';
           
-statement : assign | add | sub | mul | div | incrementExpression | decrementExpression | print | ifoperator | ifelseoperator | whilecycle | dowhilecycle;
+statement : assign | add | sub | mul | div | incrementExpression | decrementExpression | print | ifoperator | ifelseoperator | whilecycle | dowhilecycle | forcycle;
 
 assign    : 'let' ID 'be' (NUMBER | ID) ;
 print     : 'print' (NUMBER | ID) ;
@@ -18,6 +18,7 @@ boolbrackets:'(' (booloperator|comparison) ')';
 ifoperator: 'if' '(' (comparison | booloperator) ')' 'do' statement* 'endif';
 ifelseoperator: 'if' '(' (comparison | booloperator) ')' 'do' statement* else_word statement* 'endif';
 
+forcycle: 'for' ID 'in range' '(' NUMBER ',' NUMBER ')' 'do' statement* 'endfor';
 dowhilecycle: 'do' statement* 'while' '(' (comparison | booloperator) ')';
 whilecycle: 'while' '(' (comparison | booloperator) ')' 'do' statement* 'endwhile';
 

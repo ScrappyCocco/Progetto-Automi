@@ -32,4 +32,8 @@ start
 		increment a
 	while (a lwequal 10)
 	print a
+	
+	for a in range (0,5) do
+		print a
+	endfor
 end

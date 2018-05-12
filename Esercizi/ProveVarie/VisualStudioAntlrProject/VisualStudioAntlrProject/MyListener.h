@@ -52,6 +52,8 @@ public:
 	/**
 	Cicli
 	*/
+	void enterForcycle(swlParser::ForcycleContext *ctx);
+	void exitForcycle(swlParser::ForcycleContext *ctx);
 	void enterDowhilecycle(swlParser::DowhilecycleContext *ctx);
 	void exitDowhilecycle(swlParser::DowhilecycleContext *ctx);
 	void enterWhilecycle(swlParser::WhilecycleContext *ctx);

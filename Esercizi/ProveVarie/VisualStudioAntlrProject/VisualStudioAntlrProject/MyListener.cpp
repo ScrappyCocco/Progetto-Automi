@@ -299,5 +299,29 @@ void MyListener::exitDowhilecycle(swlParser::DowhilecycleContext *ctx)
 	
 }
 
-
-
+void MyListener::enterForcycle(swlParser::ForcycleContext *ctx)
+{
+	string name = ctx->ID()->getText();
+	string number1 = ctx->NUMBER(0)->getText();
+	string number2 = ctx->NUMBER(1)->getText();
+	string nameString = name;
+	string cond = "";
+	if (number1 > number2)
+	{
+		nameString = "--" + nameString;
+		cond = name + " > " + number2;
+	}
+	else
+	{
+		nameString = "++" + nameString;
+		cond = name + " < " + number2;
+	}
+	cout << string(indent, ' ') << "for (int " + name + " = " + number1 + "; " 
+		+ cond + "; " + nameString << ") {" << endl;
+	indent += 4;
+}
+void MyListener::exitForcycle(swlParser::ForcycleContext *ctx)
+{
+	indent -= 4;
+	cout << string(indent, ' ') << "}" << endl;
+}
