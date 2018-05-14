@@ -22,13 +22,13 @@ forcycle: 'for' ID 'in range' '(' NUMBER ',' NUMBER ')' 'do' statement* 'endfor'
 dowhilecycle: 'do' statement* 'while' '(' (comparison | booloperator) ')';
 whilecycle: 'while' '(' (comparison | booloperator) ')' 'do' statement* 'endwhile';
 
-incrementExpression : 'increment' (ID); /* Ancora da implementare */
-decrementExpression : 'decrement' (ID); /* Ancora da implementare */
+incrementExpression : 'increment' (ID);
+decrementExpression : 'decrement' (ID);
 
 ID        : [a-z]+ ;
 NUMBER    : [0-9]+ ;
 WS        : [ \n\t]+ -> skip;
-bool_compare_operators	: 'lower' | 'greater' | 'equal' | 'different' | 'grequal' | 'lwequal'; /*Sono minuscoli per non rendere la grammatica ambigua con ID  */
+bool_compare_operators	: 'lower' | 'greater' | 'equal' | 'different' | 'grequal' | 'lwequal';
 operator_list: 'and' | 'or';
 not_operator: 'not';
 else_word: 'else';
