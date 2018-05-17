@@ -331,3 +331,29 @@ void MyListener::exitForcycle(swlParser::ForcycleContext *ctx)
 	indent -= 4;
 	cout << string(indent, ' ') << "}" << endl;
 }
+
+void MyListener::enterFunction(swlParser::FunctionContext *ctx)
+{
+	cout << "lol" << endl;
+	indent += 4;
+	string finalString = ctx->ID->getText() + "(";
+	for (int i = 0; i < ctx->ID().size(); i++)
+	{
+		if (i < ctx->ID.size() - 1)
+		{
+			finalString += ctx->ID(i)->getText() + ",";
+		}
+		else
+		{
+			finalString += ctx->ID(i)->getText();
+		}
+	}
+	finalString += ")";
+	cout << finalString << "{" << endl;
+
+}
+void MyListener::exitFunction(swlParser::FunctionContext *ctx)
+{
+	indent -= 4;
+	cout << "}" << endl;
+}
