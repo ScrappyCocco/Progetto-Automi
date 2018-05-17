@@ -37,6 +37,3 @@ start
 		print a
 	endfor
 end
-
-function f(a):
-endfunction
