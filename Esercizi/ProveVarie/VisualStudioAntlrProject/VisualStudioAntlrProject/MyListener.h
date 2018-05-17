@@ -58,6 +58,13 @@ public:
 	void exitDowhilecycle(swlParser::DowhilecycleContext *ctx);
 	void enterWhilecycle(swlParser::WhilecycleContext *ctx);
 	void exitWhilecycle(swlParser::WhilecycleContext *ctx);
+
+	/**
+	Funzioni
+	*/
+
+	void enterFunction(swlParser::FunctionContext *ctx);
+	void exitFunction(swlParser::FunctionContext *ctx);
 	
 	/*TODO
 	-Il not boolbrackets? Avrebbe senso
