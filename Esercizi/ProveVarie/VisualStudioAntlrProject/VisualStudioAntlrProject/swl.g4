@@ -1,8 +1,6 @@
 grammar swl;
 
-program   : 'start' statement+ 'end' function*;
-
-function  : 'function' ID '(' ID* ')' ':' 'endfunction';
+program   : 'start' statement+ 'end';
           
 statement : assign | add | sub | mul | div | incrementExpression | decrementExpression | print | ifoperator | ifelseoperator | whilecycle | dowhilecycle | forcycle;
 
