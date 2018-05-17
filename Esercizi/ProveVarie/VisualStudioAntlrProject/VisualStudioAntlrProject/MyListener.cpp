@@ -178,7 +178,13 @@ string generateComparisonExpression(swlParser::ComparisonContext* ctx) {
 string generateBooleanExpression(swlParser::BooloperatorContext* ctx);
 
 string generateBracketsBooleanExpression(swlParser::BoolbracketsContext* ctx) {
-	string final_string = "(";
+	string final_string = "";
+	if (ctx->not_operator().size() > 0) {
+		for (int i = 0; i < ctx->not_operator().size();i++) {
+			final_string += "!";
+		}
+	}
+	final_string += "(";
 	if (ctx->comparison() != NULL) {
 		final_string += generateComparisonExpression(ctx->comparison());
 	}

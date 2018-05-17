@@ -10,7 +10,7 @@ start
 	print b
 	print a
 	print 3
-	if ((a grequal 10) or a greater 2 and (b greater 10) and a greater b or (a greater 5 and b greater 5)) do
+	if (not(a grequal 10) or a greater 2 and not not (b greater 10) and a greater b or (a greater 5 and b greater 5)) do
 		add 10 to a
 	endif
 	if (a grequal 10) do
@@ -19,7 +19,7 @@ start
 		endif
 	else
 		add 5 to a
-		if (a grequal 10) do
+		if (a grequal 10 or (not b lower 10)) do
 			add 10 to a
 		else
 			add 10 to a

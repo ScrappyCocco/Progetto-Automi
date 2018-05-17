@@ -60,7 +60,6 @@ public:
 	void exitWhilecycle(swlParser::WhilecycleContext *ctx);
 	
 	/*TODO
-	-Il not boolbrackets? Avrebbe senso
 	-Discutere se il codice presente ha senso o se si poteva fare in tutt'altro modo
 	*/
 };
