@@ -1,0 +1,17 @@
+start
+	let a be 5
+
+	print a
+	
+	if (a greater 5) do
+		add 10 to a
+	endif
+	
+	while (a lwequal 10) do
+		decrement a
+	endwhile
+	
+	for a in range (0,5) do
+		print a
+	endfor
+end

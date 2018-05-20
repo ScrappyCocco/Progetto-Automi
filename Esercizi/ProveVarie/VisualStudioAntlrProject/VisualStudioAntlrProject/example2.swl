@@ -1,0 +1,47 @@
+start
+	let a be 5
+	let b be 10
+	let c be 5
+	add b to a
+	add a to b
+	add 3 to b
+	print b
+	print a
+	print 3
+	if (not((a grequal 10) or (((a greater 2))) and not not (b greater 10)) and (((((a greater b)))) or (a greater 5 and b greater 5))) do
+		add 10 to a
+	endif
+	
+	while (a lwequal 10) do
+		while (b greater 5) do
+			for a in range (0,5) do
+				print a
+			endfor
+			decrement b
+		endwhile
+		decrement a
+	endwhile
+	
+	if (a grequal 10) do
+		if (a grequal 10) do
+			add 10 to a
+		endif
+	else
+		if (a greater 10) do
+			if (b greater 10) do
+				if (c greater 15) do
+					while (c lwequal 10) do
+						increment c
+					endwhile
+				endif
+			endif
+		endif
+	endif
+	
+	for a in range (0,5) do
+		for i in range (10,20) do
+			print i
+		endfor
+		print a
+	endfor
+end

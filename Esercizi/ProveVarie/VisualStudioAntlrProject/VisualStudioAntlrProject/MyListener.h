@@ -58,9 +58,6 @@ public:
 	void exitDowhilecycle(swlParser::DowhilecycleContext *ctx);
 	void enterWhilecycle(swlParser::WhilecycleContext *ctx);
 	void exitWhilecycle(swlParser::WhilecycleContext *ctx);
-	
-	/*TODO
-	-Discutere se il codice presente ha senso o se si poteva fare in tutt'altro modo
-	*/
+
 };
 

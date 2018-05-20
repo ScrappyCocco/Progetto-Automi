@@ -13,7 +13,7 @@ mul       : 'mul' (NUMBER | ID) 'to' ID ;
 div       : 'div' (NUMBER | ID) 'to' ID ;
 
 comparison : not_operator* ID bool_compare_operators (NUMBER | ID);
-booloperator: (comparison|boolbrackets)((operator_list)(comparison|boolbrackets))+;
+booloperator: (comparison|boolbrackets*)((operator_list)(comparison|boolbrackets))*;
 boolbrackets: not_operator* '(' (booloperator|comparison) ')';
 ifoperator: 'if' '(' (comparison | booloperator) ')' 'do' statement* 'endif';
 ifelseoperator: 'if' '(' (comparison | booloperator) ')' 'do' statement* else_word statement* 'endif';

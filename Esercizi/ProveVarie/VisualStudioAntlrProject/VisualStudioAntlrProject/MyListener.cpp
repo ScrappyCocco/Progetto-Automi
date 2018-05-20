@@ -326,6 +326,7 @@ void MyListener::enterForcycle(swlParser::ForcycleContext *ctx)
 		+ cond + "; " + nameString << ") {" << endl;
 	indent += 4;
 }
+
 void MyListener::exitForcycle(swlParser::ForcycleContext *ctx)
 {
 	indent -= 4;
